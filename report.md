@@ -1,7 +1,9 @@
 
 ## Mục lục
-* [1. Định lý CAP](#1-định-lý-cap)
-* [2. Eventual Consistency](#2-eventual-consistency)
+* [Định lý CAP](#1-định-lý-cap)
+* [Eventual Consistency](#2-eventual-consistency)
+* [Throughput và Latency](#3-throughput-và-latency)
+* [Task Queue khác gì Message Queue?](#4=task-queue-khác-gì-message-queue?)
 
 
 ## 1. Định lý CAP
