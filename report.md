@@ -1,4 +1,8 @@
 
+## Mục lục
+* [1. Định lý CAP](#1-định-lý-cap)
+* [2. Eventual Consistency](#2-eventual-consistency)
+
 
 ## 1. Định lý CAP
 
@@ -51,7 +55,28 @@ Server master phục vụ đọc và ghi, nhân bản các dữ liệu được 
 Tất cả server đều hỗ trợ đọc ghi, các server là ngang hàng về việc ghi. Nếu một master sập, hệ thống vẫn tiếp tục đọc ghi. Tuy nhiên, vấn đề có nhiều master, sẽ dẫn đến sự thiếu nhất quán trong việc ghi và đồng bộ giữa các server. Giải quyết xung đột sẽ càng phức tạp nếu thêm server ghi.
 
 ### Sharding
+**Sharding** phân tán dữ liệu xuyên suốt các database khác nhau như mỗi database giữa mỗi database giữa một phần dữ liệu. Đối với một hệ thống có dữ liệu lên đến hàng triệu dòng, việc query dữ liệu trở nên vô cùng chậm chập. Việc chia nhỏ bảng, làm giảm số lượng index, giúp gia tăng tốc độ truy vấn.
+
+![](/img/sharding.jpg)
+
+## 4. Task Queue khác gì Message Queue?
+
+### Message Queue
+Message queue nhận, giữ, và vận chuyển tin nhắn. Nếu một tác vụ mất nhiều thời gian để xử lý một các đồng bộ, bạn có thể dùng một message queue với luồng công việc. Ứng dụng sẽ publish các tác vụ và các worker sẽ pick up làm các tác vụ đó. Message Queue là lưu trữ message tuần tự. 
+
+Trong môi trường phân tán, sẽ có nhiều ứng dụng xử lý song song trên cufngm ột message queue. Khi đó message vào trước và ra trước nhưng khong chắc chắn là sẽ được xử lý xong trước tiên. Vì ngay khi message được dequeue và message kế tiếp cũng được dequeue ra ngay lập tức. Neus quá tình xử lý có message thứ nhất mà lâu hơn message thứ hai, thì thứ tự xử lý sẽ không còn như mong muốn. Giả sử có hai message tương ứng xảy ra lần lượt là: Xác nhận đơn hàng và hủy đơn hàng. Các message này được gửi vào queue. Messsage hủy được xử lý xong trước, lúc này message xác nhận đơn hàng mới được xử lý do phải làm việc lâu hơn, thì xảy ra lỗi do đơn hàng đã bị hủy.
+
+### Task Queue
+
+Các Task queue nhận các task và những dữ liệu liên quan, chạy chúng, sau đó chuyển đi các kết quả của chúng. Task queue hỗ trợ lập lịch, sắp xếp các công việc có liên quan vào cùng một chỗ để thực hiện chung, có thể chạy các công việc đòi hỏi tính toán nhiều ở trong nền.
+
+### Sự khác nhau
+
+Có thể thấy rằng các **Message Queue** sẽ xử lý các message tuần tự đã được đẩy vào. **Task Queue** sẽ nhận các task và dử liệu liên quan, sau đó sẽ lập lịch và xử lý các công việc giống nhau hoặc gần giống nhau cùng một lúc.
 
 ## Reference
 [CAP theorem](https://medium.com/eway/database-101-p1-%C4%91%E1%BB%8Bnh-l%C3%BD-cap-7260adf8b02f)
 [Master-Salve Replication](https://viblo.asia/p/gioi-thieu-ve-mysql-replication-master-slave-bxjvZYwNkJZ)
+[Sharding](https://viblo.asia/p/shard-database-voi-activerecord-turntable-l0rvmx3kGyqA)
+[Task Queue](https://www.fullstackpython.com/task-queues.html)
+[Message Queue](https://techblog.vn/van-thu-tu-messge-trong-viec-xu-ly-bat-dong-bo-dua-tren-message-queue)
