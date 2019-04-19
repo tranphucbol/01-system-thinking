@@ -1,9 +1,23 @@
 
 ## Mục lục
 * [Định lý CAP](#1-định-lý-cap)
+    * [Giới thiệu](#giới-thiệu)
+    * [Phát biểu định lý](#phát-biểu-định-lý)
+    * [Phân loại](#phân-loại)
+    * [Các mẫu nhất quán](#các-mẫu-nhất-quán-consistency-patterns)
 * [Eventual Consistency](#2-eventual-consistency)
+    * [Định nghĩa](#định-nghĩa)
 * [Throughput và Latency](#3-throughput-và-latency)
-* [Task Queue khác gì Message Queue?](#4=task-queue-khác-gì-message-queue?)
+* [Scale Database](#4-scale-database)
+    * [Replication](#replication)
+        * [Master-salve replication](#master-salve-replication)
+        * [Master-master replication](#master-master-replication)
+    * [Sharding](#sharding)
+* [Task Queue khác gì Message Queue?](#5-task-queue-khác-gì-message-queue)
+    * [Message Queue](#message-queue)
+    * [Task Queue](#task-queue)
+    * [Sự khác nhau](#sự-khác-nhau)
+* [Reference](#reference)
 
 
 ## 1. Định lý CAP
@@ -43,9 +57,9 @@ Hệ thống phổ biến dùng mô hình này là **DNS (Domain Name System)**.
 ## 3. Throughput và Latency
 ### Định nghĩa
 
-**Throughput** (Thông lượng): là số hành động được thực hiện hay số kết quả được đưa ra trong một đơn vị thời gian.
-
-**Latency** (Độ trễ): là thời gian để thực hiện một số hành động hoặc để tạo ra một số kết quả.
+**Throughput** (Thông lượng): là số hànScale Databaseh động được thực hiện hay số kết quả được đưa ra trong một đơn vị thời gian.Scale Database
+Scale Database
+**Latency** (Độ trễ): là thời gian để tScale Databasehực hiện một số hành động hoặc để tạo ra một số kết quả.
 
 ## 4. Scale Database
 ### Replication
@@ -61,7 +75,7 @@ Tất cả server đều hỗ trợ đọc ghi, các server là ngang hàng về
 
 ![](/img/sharding.jpg)
 
-## 4. Task Queue khác gì Message Queue?
+## 5. Task Queue khác gì Message Queue?
 
 ### Message Queue
 Message queue nhận, giữ, và vận chuyển tin nhắn. Nếu một tác vụ mất nhiều thời gian để xử lý một các đồng bộ, bạn có thể dùng một message queue với luồng công việc. Ứng dụng sẽ publish các tác vụ và các worker sẽ pick up làm các tác vụ đó. Message Queue là lưu trữ message tuần tự. 
@@ -77,8 +91,8 @@ Các Task queue nhận các task và những dữ liệu liên quan, chạy chú
 Có thể thấy rằng các **Message Queue** sẽ xử lý các message tuần tự đã được đẩy vào. **Task Queue** sẽ nhận các task và dử liệu liên quan, sau đó sẽ lập lịch và xử lý các công việc giống nhau hoặc gần giống nhau cùng một lúc.
 
 ## Reference
-[CAP theorem](https://medium.com/eway/database-101-p1-%C4%91%E1%BB%8Bnh-l%C3%BD-cap-7260adf8b02f)
-[Master-Salve Replication](https://viblo.asia/p/gioi-thieu-ve-mysql-replication-master-slave-bxjvZYwNkJZ)
-[Sharding](https://viblo.asia/p/shard-database-voi-activerecord-turntable-l0rvmx3kGyqA)
-[Task Queue](https://www.fullstackpython.com/task-queues.html)
-[Message Queue](https://techblog.vn/van-thu-tu-messge-trong-viec-xu-ly-bat-dong-bo-dua-tren-message-queue)
+* [CAP theorem](https://medium.com/eway/database-101-p1-%C4%91%E1%BB%8Bnh-l%C3%BD-cap-7260adf8b02f)
+* [Master-Salve Replication](https://viblo.asia/p/gioi-thieu-ve-mysql-replication-master-slave-bxjvZYwNkJZ)
+* [Sharding](https://viblo.asia/p/shard-database-voi-activerecord-turntable-l0rvmx3kGyqA)
+* [Task Queue](https://www.fullstackpython.com/task-queues.html)
+* [Message Queue](https://techblog.vn/van-thu-tu-messge-trong-viec-xu-ly-bat-dong-bo-dua-tren-message-queue)
