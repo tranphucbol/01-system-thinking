@@ -19,6 +19,10 @@
   - [Message Queue](#message-queue)
   - [Task Queue](#task-queue)
   - [Sự khác nhau](#s%E1%BB%B1-kh%C3%A1c-nhau)
+- [6. Load Balancer](#6-load-balancer)
+- [7. Kiến trúc bên trong **nginx**](#7-ki%E1%BA%BFn-tr%C3%BAc-b%C3%AAn-trong-nginx)
+  - [NGINX là gì?](#nginx-l%C3%A0-g%C3%AC)
+  - [Vì sao nginx dùng single thread?](#v%C3%AC-sao-nginx-d%C3%B9ng-single-thread)
 - [Reference](#reference)
 
 # 1. Định lý CAP
@@ -106,6 +110,28 @@ Các Task queue nhận các task và những dữ liệu liên quan, chạy chú
 
 Có thể thấy rằng các **Message Queue** sẽ xử lý các message tuần tự đã được đẩy vào. **Task Queue** sẽ nhận các task và dử liệu liên quan, sau đó sẽ lập lịch và xử lý các công việc giống nhau hoặc gần giống nhau cùng một lúc.
 
+# 6. Load Balancer
+
+**Load balancer** là một phương pháp phân phối khối lượng tải trên nhiều máy tính để có thể sử dụng tối ưu các nguồn lực, tối đa hóa thông lượng, giảm thời gian đáp ứng và tránh tình trạng quá tải trên máy chủ.
+
+**Các lợi ích khi sử dụng phương pháp cân bằng tải:**
+
+- Tăng khả năng đap ứng, tình trạng quá tải trên máy chủ.
+- Tăng độ tinh cậy và khả năng dự phòng cho hệ thống.
+- Tăng tính bảo mật cho hệ thống.
+
+# 7. Kiến trúc bên trong **nginx**
+
+## NGINX là gì?
+
+**NGINX** là một web server mạnh mẽ và sử dig **kiến trúc đơn luồng**, hướng sự kiện (event-driven), không đồng bộ (asynchronous) và có khả năng mở rộng. Ngay cả khi bạn không cần phải xử hý hàng ngàn request truy vấn đống thời. Các tính năng mạnh mẽ của **NGINX**: load balancing, reverse proxy, ...
+
+**NGINX** có một `master process` (thực hiện các hoạt động đặc quyền như độc cấu hình và liên kết với các cổng) và một số worker và các process trợ giúp.
+
+## Vì sao nginx dùng single thread?
+
+Các phổ biến để thiết kể một ứng dụng mạng là gán một thread hoặc một process cho mỗi connection. Cách thiết kể này đơn giản và dễ cài đặt, nhưng nó không thể scale khi ứng dụng phải xử lý hàng ngàn kết nối đồng thời.
+
 # Reference
 
 - [CAP theorem](https://medium.com/eway/database-101-p1-%C4%91%E1%BB%8Bnh-l%C3%BD-cap-7260adf8b02f)
@@ -113,3 +139,4 @@ Có thể thấy rằng các **Message Queue** sẽ xử lý các message tuần
 - [Sharding](https://viblo.asia/p/shard-database-voi-activerecord-turntable-l0rvmx3kGyqA)
 - [Task Queue](https://www.fullstackpython.com/task-queues.html)
 - [Message Queue](https://techblog.vn/van-thu-tu-messge-trong-viec-xu-ly-bat-dong-bo-dua-tren-message-queue)
+- [Nginx](https://www.nginx.com/blog/inside-nginx-how-we-designed-for-performance-scale/)
