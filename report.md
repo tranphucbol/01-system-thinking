@@ -33,9 +33,9 @@ Vào thời điểm giữa những năm 90, với sự ra đời của các hệ
 
 **Định lý CAP** nêu ra ba yếu tố của hệ thống chia sẻ dữ liệu.
 
-* **Consistency** (tính nhất quán): mỗi lần đọc dữ liệu sẽ nhận được nội dung mới nhất hoặc lỗi
-* **Availability** (tính sẵn sàng): mỗi một resquest sẽ được một reponse không phải lỗi, nhưng không đảm bảo là lưu trữ mới nhất
-* **Partition Tolerance** (tính chịu đựng phân mảnh): Hệ thống tiếp tục hoạt động bất chấp lượng tùy ý các thông điệp / gói tin bị mất hoặc trì hoãn do trục trặc giữ các nút
+- **Consistency** (tính nhất quán): mỗi lần đọc dữ liệu sẽ nhận được nội dung mới nhất hoặc lỗi
+- **Availability** (tính sẵn sàng): mỗi một resquest sẽ được một reponse không phải lỗi, nhưng không đảm bảo là lưu trữ mới nhất
+- **Partition Tolerance** (tính chịu đựng phân mảnh): Hệ thống tiếp tục hoạt động bất chấp lượng tùy ý các thông điệp / gói tin bị mất hoặc trì hoãn do trục trặc giữ các nút
 
 Một hệ thống lưu trữ phân tán chỉ có thể đồng thời đảm bảo 2 trong 3 yếu tố trên. Tuy nhiên, một hệ thống không chịu đựng phân đoạn mạng có thể đạt được **Consitency** và **Availability** và thường thực hiện bằng các giao thức nhân bản. Để đạt được điều này, hệ thống client và hệ thống lưu trữ phải ở trong cùng một môi trường. Để đạt được điều này, hệ thống client và hệ thống lưu trữ phải ở trong cùng một môi trường, trong một số tình huống nhất định chúng sẽ suy sụp cùng nhau, và vì vậu client không nhận ra phân đoạn. Một nhận xét quan trọng là trong các hệ thống phân tán ở qui mô lớn thì việc mạng bị phân đoạn là một thực tế, do đó **Consistency** và **Availability** không thể đạt được cùng nhau.
 
@@ -43,16 +43,16 @@ Một hệ thống lưu trữ phân tán chỉ có thể đồng thời đảm b
 
 Cho nên, Định lý CAP phân loại các hệ thống thành 2 loại khác nhau:
 
-* **CP (Consistent and Partition Tolerant):** Đợi một respone từ node được phân đoạn có thể gây ra timeout error. **CP** là một lựa chọn tốt nếu bạn cần một ứng dụng đọc ghi guyên tử.
-* **AP (Availability and Partition Tolerant):** Respone trả vè phiên bản gần nhất của dữ liệu có trên node đó, có thể không phải là mới nhất. Việc ghi có thể tốn một lượng thời gian cho việc lan truyền. **AP** sẽ tốt đối với các ứng dụng cần `eventual consistency` hoặc các ứng dụng yêu cầu hoạt động mặc cho có lỗi từ ngoài.
+- **CP (Consistent and Partition Tolerant):** Đợi một respone từ node được phân đoạn có thể gây ra timeout error. **CP** là một lựa chọn tốt nếu bạn cần một ứng dụng đọc ghi guyên tử.
+- **AP (Availability and Partition Tolerant):** Respone trả vè phiên bản gần nhất của dữ liệu có trên node đó, có thể không phải là mới nhất. Việc ghi có thể tốn một lượng thời gian cho việc lan truyền. **AP** sẽ tốt đối với các ứng dụng cần `eventual consistency` hoặc các ứng dụng yêu cầu hoạt động mặc cho có lỗi từ ngoài.
 
 **Định lý CAP** thể hiện được sự **không hoàn hảo** của mọi hệ thống. Để lựa chọn được một cặp tính chất phải đánh đổi một cặp tính chất quan trọng khác.
 
 ## Các mẫu nhất quán (Consistency patterns)
 
-* **Weak consistency (Nhất quán yếu)**
-* **Eventual consistency (Nhất quán đến cuối cùng)**
-* **Strong consistency (Nhất quán mạnh)**
+- **Weak consistency (Nhất quán yếu)**
+- **Eventual consistency (Nhất quán đến cuối cùng)**
+- **Strong consistency (Nhất quán mạnh)**
 
 # 2. Eventual consistency
 
@@ -108,8 +108,8 @@ Có thể thấy rằng các **Message Queue** sẽ xử lý các message tuần
 
 # Reference
 
-* [CAP theorem](https://medium.com/eway/database-101-p1-%C4%91%E1%BB%8Bnh-l%C3%BD-cap-7260adf8b02f)
-* [Master-Salve Replication](https://viblo.asia/p/gioi-thieu-ve-mysql-replication-master-slave-bxjvZYwNkJZ)
-* [Sharding](https://viblo.asia/p/shard-database-voi-activerecord-turntable-l0rvmx3kGyqA)
-* [Task Queue](https://www.fullstackpython.com/task-queues.html)
-* [Message Queue](https://techblog.vn/van-thu-tu-messge-trong-viec-xu-ly-bat-dong-bo-dua-tren-message-queue)
+- [CAP theorem](https://medium.com/eway/database-101-p1-%C4%91%E1%BB%8Bnh-l%C3%BD-cap-7260adf8b02f)
+- [Master-Salve Replication](https://viblo.asia/p/gioi-thieu-ve-mysql-replication-master-slave-bxjvZYwNkJZ)
+- [Sharding](https://viblo.asia/p/shard-database-voi-activerecord-turntable-l0rvmx3kGyqA)
+- [Task Queue](https://www.fullstackpython.com/task-queues.html)
+- [Message Queue](https://techblog.vn/van-thu-tu-messge-trong-viec-xu-ly-bat-dong-bo-dua-tren-message-queue)
