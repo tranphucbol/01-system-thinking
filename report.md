@@ -23,6 +23,11 @@
 - [7. Kiến trúc bên trong **nginx**](#7-ki%E1%BA%BFn-tr%C3%BAc-b%C3%AAn-trong-nginx)
   - [NGINX là gì?](#nginx-l%C3%A0-g%C3%AC)
   - [Vì sao nginx dùng single thread?](#v%C3%AC-sao-nginx-d%C3%B9ng-single-thread)
+- [8. Caching](#8-caching)
+  - [Vai trò của cache](#vai-tr%C3%B2-c%E1%BB%A7a-cache)
+  - [Các thuật toán apply cho cache](#c%C3%A1c-thu%E1%BA%ADt-to%C3%A1n-apply-cho-cache)
+    - [Least reccently used (LRU)](#least-reccently-used-lru)
+    - [Least frequent used (LFU)](#least-frequent-used-lfu)
 - [Reference](#reference)
 
 # 1. Định lý CAP
@@ -134,7 +139,26 @@ Các phổ biến để thiết kể một ứng dụng mạng là gán một th
 
 Cách tiếp cận **process-per-connection** hay **thread-per-connection**, thì các connection khi không có bất cứ một events nào xảy ra, thì connection sẽ bị blocking, dẫn đến hao phí tài nguyên, hệ thống vẫn tốn chi phí cho việc **context switch**. Còn trong **NGINX** mỗi **worker process** sẽ tương đương với một CPU core. Một worker sẽ không bao giờ bị block trên network traffic, chờ cho client phản hồi. Khi một client phản hồi, sau khi xử lý xong phản hồi nó sẽ chuyển ngay sang client khác đang chờ được xử lý, hoặc tiếp nhận một connection của client khác.
 
-việc sử dụng **single thread** là để tránh các vấn đề trong **multiprocess** và **multithread** đang gặp phải là blocking và context switch, khiến cho hệ thống chậm và khó scale hơn khi mỗi kết nối lại ứng với thread.
+Việc sử dụng **single thread** là để tránh các vấn đề trong **multiprocess** và **multithread** đang gặp phải là blocking và context switch, khiến cho hệ thống chậm và khó scale hơn khi mỗi kết nối lại ứng với thread.
+
+# 8. Caching
+
+## Vai trò của cache
+
+**Caching** cải thiện thời gian tải trang và giảm thiểu việc phải tương tác với database của server. Cở sở dữ liệu thường hoạt động tốt nhờ việc phân phối đồng đề các lần đọc ghi trên các phân vùng của nó. Các item phổ biến sẽ làm mất cân bằng phân phối, gây nghẽn cổ chai. Đưa một bộ nhớ cache ở phía trước cơ sở dữ liệu có thể giải quyết vấn đề tải không đều và sự tăng đột biến lượng truy cập.
+
+Có thể thấy được tác dụng lớn của cache. Giả sử mỗi giây ta nhận được 100 requesr, mỗi request sẽ mất 1s để chờ query database. Database sẽ dễ dàng bị quá tải. Sử dụng cache để lưu lại kết quả của câu query, lúc này dữ liệu được lưu trong RAM, thời gian truy xuất chỉ còn 50-100ms, không cần phải truy cập vào database. Hệ thống được giảm tải, còn người dùng lại nhận được kết quả nhanh hơn rất nhiều.
+
+## Các thuật toán apply cho cache
+
+### Least reccently used (LRU)
+
+Loại bỏ items lâu nhất chưa được sử dụng trong quá khứ.
+
+### Least frequent used (LFU)
+
+Thuật toán sẽ đếm các items nào thường xuyên được dùng nhất. Những items được sử dụng ít nhất thường được loại bỏ trước tiên.
+
 
 
 # Reference
@@ -145,3 +169,4 @@ việc sử dụng **single thread** là để tránh các vấn đề trong **m
 - [Task Queue](https://www.fullstackpython.com/task-queues.html)
 - [Message Queue](https://techblog.vn/van-thu-tu-messge-trong-viec-xu-ly-bat-dong-bo-dua-tren-message-queue)
 - [Nginx](https://www.nginx.com/blog/inside-nginx-how-we-designed-for-performance-scale/)
+- [Thuật toán LRU và LFU](https://en.wikipedia.org/wiki/Cache_replacement_policies#Least-frequently_used_(LFU))
