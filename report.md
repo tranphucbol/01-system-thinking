@@ -159,8 +159,6 @@ Loại bỏ items lâu nhất chưa được sử dụng trong quá khứ.
 
 Thuật toán sẽ đếm các items nào thường xuyên được dùng nhất. Những items được sử dụng ít nhất thường được loại bỏ trước tiên.
 
-
-
 # Reference
 
 - [CAP theorem](https://medium.com/eway/database-101-p1-%C4%91%E1%BB%8Bnh-l%C3%BD-cap-7260adf8b02f)
