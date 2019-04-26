@@ -28,6 +28,10 @@
   - [Các thuật toán apply cho cache](#c%C3%A1c-thu%E1%BA%ADt-to%C3%A1n-apply-cho-cache)
     - [Least reccently used (LRU)](#least-reccently-used-lru)
     - [Least frequent used (LFU)](#least-frequent-used-lfu)
+- [9. Redis](#9-redis)
+  - [Kiến trúc của Redis](#ki%E1%BA%BFn-tr%C3%BAc-c%E1%BB%A7a-redis)
+  - [Các kiểu dữ liệu của Redis](#c%C3%A1c-ki%E1%BB%83u-d%E1%BB%AF-li%E1%BB%87u-c%E1%BB%A7a-redis)
+  - [Khi nào dùng cấu trúc hyperloglog](#khi-n%C3%A0o-d%C3%B9ng-c%E1%BA%A5u-tr%C3%BAc-hyperloglog)
 - [Reference](#reference)
 
 # 1. Định lý CAP
@@ -116,7 +120,7 @@ Các Task queue nhận các task và những dữ liệu liên quan, chạy chú
 Có thể thấy rằng các **Message Queue** sẽ xử lý các message tuần tự đã được đẩy vào. **Task Queue** sẽ nhận các task và dử liệu liên quan, sau đó sẽ lập lịch và xử lý các công việc giống nhau hoặc gần giống nhau cùng một lúc.
 
 # 6. Load Balancer
-
+BAc
 **Load balancer** là một phương pháp phân phối khối lượng tải trên nhiều máy tính để có thể sử dụng tối ưu các nguồn lực, tối đa hóa thông lượng, giảm thời gian đáp ứng và tránh tình trạng quá tải trên máy chủ.
 
 **Các lợi ích khi sử dụng phương pháp cân bằng tải:**
@@ -137,9 +141,9 @@ Có thể thấy rằng các **Message Queue** sẽ xử lý các message tuần
 
 Các phổ biến để thiết kể một ứng dụng mạng là gán một thread hoặc một process cho mỗi connection. Cách thiết kể này đơn giản và dễ cài đặt, nhưng nó không thể scale khi ứng dụng phải xử lý hàng ngàn kết nối đồng thời.
 
-Cách tiếp cận **process-per-connection** hay **thread-per-connection**, thì các connection khi không có bất cứ một events nào xảy ra, thì connection sẽ bị blocking, dẫn đến hao phí tài nguyên, hệ thống vẫn tốn chi phí cho việc **context switch**. Còn trong **NGINX** mỗi **worker process** sẽ tương đương với một CPU core. Một worker sẽ không bao giờ bị block trên network traffic, chờ cho client phản hồi. Khi một client phản hồi, sau khi xử lý xong phản hồi nó sẽ chuyển ngay sang client khác đang chờ được xử lý, hoặc tiếp nhận một connection của client khác.
-
-Việc sử dụng **single thread** là để tránh các vấn đề trong **multiprocess** và **multithread** đang gặp phải là blocking và context switch, khiến cho hệ thống chậm và khó scale hơn khi mỗi kết nối lại ứng với thread.
+Cách tiếp cận **process-per-connection** hay **thread-per-connection**, thì các connection khi không có bất cứ một events nào xảy ra, thì connection sẽ bị blocking, dẫn đến hao phí tài nguyên, hệ thốBAcng vẫn tốn chi phí cho việc **context switch**. Còn trong **NGINX** mỗi **worker process** sẽ tương đương với một CPU core. Một worker sẽ không bao giờ bBAcị block trên network traffic, chờ cho client phản hồi. Khi một client phản hồi, sau khi xử lý xong phản hồi nó sẽ chuyển ngay sang client khác đang chờBAc được xử lý, hoặc tiếp nhận một connection của client khác.
+BAc
+Việc sử dụng **single thread** là để tránh các BAcvấn đề trong **multiprocess** và **multithread** đang gặp phải là blocking và context switch, khiến cho hệ thống chậm và khó scale hơn khi mỗi kết nối lạiBAc ứng với thread.
 
 # 8. Caching
 
@@ -159,6 +163,24 @@ Loại bỏ items lâu nhất chưa được sử dụng trong quá khứ.
 
 Thuật toán sẽ đếm các items nào thường xuyên được dùng nhất. Những items được sử dụng ít nhất thường được loại bỏ trước tiên.
 
+# 9. Redis
+
+## Kiến trúc của Redis
+
+**Redis** (REmote DIctionary Server) là cơ sở dự liệu **NoSQL**, lưu trữ dữ liệu với dạng **KEY-VALUE**. Lưu trữ **KEY-VALUE** là một hệ thống lưu trữ dữ liệu dưới dạng cặp khóa và giá trị. Redis sẽ lưu dữ liệu theo dạng KEY-VALUE trong RAM. Vì tủy xuất dữ liệu trên RAM, nên tốc độ query dữ liệu của Redis là cực kỳ nhanh, có thể lên đến 110000 lệnh SETs mỗi giây, 81000 GETs mỗi giây. Dù là **NoSQL** database, nhưng các operation ở Redis vẫn có tính chất **atomic**, tức là nếu có từ clients trở lên cùng vào database, Redis server sẽ luôn cập nhật giá trị data mỗi khi có thay đổi. Redis có thể được dùng trong nhiều trường hợp khác nhau: caching, message-queue,...
+
+## Các kiểu dữ liệu của Redis
+
+- **STRING:** string, integer hoặc float. Redis có thể làm việc với cả string, từng phần của string, cũng như tăng/giảm gía trị của integer, float.
+- **LIST:** danh sách liên kết của strings. Redis hỗ trợ các thao tác push, pop từ của 2 phía của list, trim dựa theo offset, đọc 1 hoặc nhiều items của list, tìm kiếm và xóa giá trị.
+- **SET:** tập hợp các string (không được sắp xếp). Redis hỗ trợ các thao tác thêm, đọc, xóa từng phần tử, kiểm tra sự xuất hiện của phần tử trong tập hợp. Ngoài ra Redis còn hỗ trợ các phép toán tập hợp, gồm intersect/union/diffrence.
+- **HASH:** lưu trữ hash table của các cặp key-value, trong đó key được sắp xếp ngẫu nhiên, không theo thứ tự nào cả. Redis hỗ trợ các thao tác thêm, đọc, xóa từng phàn tử, cũng như đọc tất cả giá trị.
+- **ZSET (sorted set):** là 1 danh sách, trong đó mỗi phần tử là map của 1 string(member) và 1 floating-point number (score), danh sách được sắp xếp theo score này. Redis hỗ trợ thao tác thêm, đọc, xóa từng phần tử, lấy ra các phần tử dựa theo range của score hoặc string.
+
+## Khi nào dùng cấu trúc hyperloglog
+
+**Hyperloglog** là một cấu trúc dữ liệu xác xuất để ước tính các thành phần duy nhất trong một tập dữ liệu.
+
 # Reference
 
 - [CAP theorem](https://medium.com/eway/database-101-p1-%C4%91%E1%BB%8Bnh-l%C3%BD-cap-7260adf8b02f)
@@ -168,3 +190,5 @@ Thuật toán sẽ đếm các items nào thường xuyên được dùng nhất
 - [Message Queue](https://techblog.vn/van-thu-tu-messge-trong-viec-xu-ly-bat-dong-bo-dua-tren-message-queue)
 - [Nginx](https://www.nginx.com/blog/inside-nginx-how-we-designed-for-performance-scale/)
 - [Thuật toán LRU và LFU](https://en.wikipedia.org/wiki/Cache_replacement_policies#Least-frequently_used_(LFU))
+- [Redis](http://qnimate.com/overview-of-redis-architecture/)
+- [Redis](https://medium.com/vunamhung/redis-l%C3%A0-g%C3%AC-t%C3%ACm-hi%E1%BB%83u-v%E1%BB%81-c%C6%A1-s%E1%BB%9F-d%E1%BB%AF-li%E1%BB%87u-redis-60dd267f53ad)
