@@ -32,6 +32,7 @@
   - [Kiến trúc của Redis](#ki%E1%BA%BFn-tr%C3%BAc-c%E1%BB%A7a-redis)
   - [Các kiểu dữ liệu của Redis](#c%C3%A1c-ki%E1%BB%83u-d%E1%BB%AF-li%E1%BB%87u-c%E1%BB%A7a-redis)
   - [Khi nào dùng cấu trúc hyperloglog](#khi-n%C3%A0o-d%C3%B9ng-c%E1%BA%A5u-tr%C3%BAc-hyperloglog)
+  - [Cách đặt tên cho key](#c%C3%A1ch-%C4%91%E1%BA%B7t-t%C3%AAn-cho-key)
 - [Reference](#reference)
 
 # 1. Định lý CAP
@@ -179,7 +180,11 @@ Thuật toán sẽ đếm các items nào thường xuyên được dùng nhất
 
 ## Khi nào dùng cấu trúc hyperloglog
 
-**Hyperloglog** là một cấu trúc dữ liệu xác xuất để ước tính các thành phần duy nhất trong một tập dữ liệu.
+**Hyperloglog** là một cấu trúc dữ liệu xác xuất để ước tính các thành phần duy nhất trong một tập dữ liệu. Khi cần ước tính các thành phần duy nhất của dữ liệu thì **HyperLogLog** lựa chọn bởi sự tối ưu bộ nhớ khi thực hiện. Khi một tập dữ liệu rất lớn thì việc lưu trữ để đếm theo cách thông thường là bất khả thi. 
+
+## Cách đặt tên cho key
+
+
 
 # Reference
 

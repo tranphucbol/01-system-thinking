@@ -1,9 +1,33 @@
-# Load balancer
+# Load balancer 
 
-**Load balancer** là một phương pháp phân phối khối lượng tải trên nhiều máy tính để có thể sử dụng tối ưu các nguồn lực, tối đa hóa thông lượng, giảm thời gian đáp ứng và tránh tình trạng quá tải trên máy chủ.
+Tạo 2 server với python 3
 
-**Các lợi ích khi sử dụng phương pháp cân bằng tải:**
+Vào thư mục `port8000`
 
-* Tăng khả năng đap ứng, tình trạng quá tải trên máy chủ.
-* Tăng độ tinh cậy và khả năng dự phòng cho hệ thống.
-* Tăng tính bảo mật cho hệ thống.
+> python3 -m http.server 8000
+
+Vào thư mục `port8100`
+
+> python3  -m http.server 8100
+
+Sửa config của `nginx` trong `/etc/nginx/sites-enabled/default`
+
+``` C++
+upstream myserver {
+    server 127.0.0.1:8000;
+    server 127.0.0.1:8100;
+}
+
+server {
+    location / {
+        proxy_pass http://myserver;
+    }
+}
+```
+
+Khởi động lại `nginx`:
+> systemctl restart nginx
+
+## Kết quả
+
+![](../img/load-balancer.png)
