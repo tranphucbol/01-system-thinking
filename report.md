@@ -180,8 +180,8 @@ Thuật toán sẽ đếm các items nào thường xuyên được dùng nhất
 
 ## Khi nào dùng cấu trúc hyperloglog
 
-**Hyperloglog** là một cấu trúc dữ liệu xác xuất để ước tính các thành phần duy nhất trong một tập dữ liệu. Khi cần ước tính các thành phần duy nhất của dữ liệu thì **HyperLogLog** lựa chọn bởi sự tối ưu bộ nhớ khi thực hiện. Khi một tập dữ liệu rất lớn thì việc lưu trữ để đếm theo cách thông thường là bất khả thi. 
-
+**Hyperloglog** là một cấu trúc dữ liệu xác xuất để ước tính các thành phần duy nhất trong một tập dữ liệu. Khi cần ước tính các thành phần duy nhất của dữ liệu thì **HyperLogLog** lựa chọn bởi sự tối ưu bộ nhớ khi thực hiện. Khi một tập dữ liệu rất lớn thì việc lưu trữ để đếm theo cách thông thường là bất khả thi. Trong trường hợp xấu nhất **Redis** sử dụng **12KB**.
+ 
 ## Cách đặt tên cho key
 
 
