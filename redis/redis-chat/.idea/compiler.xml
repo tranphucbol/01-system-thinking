@@ -9,5 +9,8 @@
         <module name="redisson" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="redisson" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
