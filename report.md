@@ -184,7 +184,10 @@ Thuật toán sẽ đếm các items nào thường xuyên được dùng nhất
  
 ## Cách đặt tên cho key
 
-
+- **Key không được quá dài.** Nếu key quá dài sẽ rất khó để nhớ và sẽ tốn nhiều chi phí trong việc tìm kiếm hơn. Việc đặt key quá dài dẫn đến việc tiêu tốn tài nguyên
+- **Key không được quá ngắn.** Nếu key như `u500frd`, có thể thay thế bằng `user:500:friend`. Cách sau sẽ dễ đọc howng và không gian được thêm vào so với cái trước cũng khá ít. Mặc dù key ngắn hơn rõ ràng sẽ tiêu tốn ít bộ nhớ hơn một chút, việc đặt key là phải tìm sự cân bằng phù hợp.
+- **Cố gắng gắn bó với schema**. Chẳng hạn như `object-type:id`, `user-chat:123`.
+- **Kích thước khóa tối đa được phép là 512MB**. Nhưng có lẽ chắc bao giờ phải dùng tới như vậy ^^.
 
 # Reference
 
@@ -197,3 +200,4 @@ Thuật toán sẽ đếm các items nào thường xuyên được dùng nhất
 - [Thuật toán LRU và LFU](https://en.wikipedia.org/wiki/Cache_replacement_policies#Least-frequently_used_(LFU))
 - [Redis](http://qnimate.com/overview-of-redis-architecture/)
 - [Redis](https://medium.com/vunamhung/redis-l%C3%A0-g%C3%AC-t%C3%ACm-hi%E1%BB%83u-v%E1%BB%81-c%C6%A1-s%E1%BB%9F-d%E1%BB%AF-li%E1%BB%87u-redis-60dd267f53ad)
+- [Redis-Key](https://redis.io/topics/data-types-intro)
