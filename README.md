@@ -121,7 +121,7 @@ Các Task queue nhận các task và những dữ liệu liên quan, chạy chú
 Có thể thấy rằng các **Message Queue** sẽ xử lý các message tuần tự đã được đẩy vào. **Task Queue** sẽ nhận các task và dử liệu liên quan, sau đó sẽ lập lịch và xử lý các công việc giống nhau hoặc gần giống nhau cùng một lúc.
 
 # 6. Load Balancer
-BAc
+
 **Load balancer** là một phương pháp phân phối khối lượng tải trên nhiều máy tính để có thể sử dụng tối ưu các nguồn lực, tối đa hóa thông lượng, giảm thời gian đáp ứng và tránh tình trạng quá tải trên máy chủ.
 
 **Các lợi ích khi sử dụng phương pháp cân bằng tải:**
