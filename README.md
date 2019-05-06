@@ -23,16 +23,19 @@
 - [7. Kiến trúc bên trong **nginx**](#7-ki%E1%BA%BFn-tr%C3%BAc-b%C3%AAn-trong-nginx)
   - [NGINX là gì?](#nginx-l%C3%A0-g%C3%AC)
   - [Vì sao nginx dùng single thread?](#v%C3%AC-sao-nginx-d%C3%B9ng-single-thread)
+  - [Thí nghiệm](#th%C3%AD-nghi%E1%BB%87m)
 - [8. Caching](#8-caching)
   - [Vai trò của cache](#vai-tr%C3%B2-c%E1%BB%A7a-cache)
   - [Các thuật toán apply cho cache](#c%C3%A1c-thu%E1%BA%ADt-to%C3%A1n-apply-cho-cache)
     - [Least reccently used (LRU)](#least-reccently-used-lru)
     - [Least frequent used (LFU)](#least-frequent-used-lfu)
+  - [Thí nghiệm](#th%C3%AD-nghi%E1%BB%87m-1)
 - [9. Redis](#9-redis)
   - [Kiến trúc của Redis](#ki%E1%BA%BFn-tr%C3%BAc-c%E1%BB%A7a-redis)
   - [Các kiểu dữ liệu của Redis](#c%C3%A1c-ki%E1%BB%83u-d%E1%BB%AF-li%E1%BB%87u-c%E1%BB%A7a-redis)
   - [Khi nào dùng cấu trúc hyperloglog](#khi-n%C3%A0o-d%C3%B9ng-c%E1%BA%A5u-tr%C3%BAc-hyperloglog)
   - [Cách đặt tên cho key](#c%C3%A1ch-%C4%91%E1%BA%B7t-t%C3%AAn-cho-key)
+  - [Thí nghiệm](#th%C3%AD-nghi%E1%BB%87m-2)
 - [Reference](#reference)
 
 # 1. Định lý CAP
@@ -147,6 +150,10 @@ Cách tiếp cận **process-per-connection** hay **thread-per-connection**, th�
 BAc
 Việc sử dụng **single thread** là để tránh các BAcvấn đề trong **multiprocess** và **multithread** đang gặp phải là blocking và context switch, khiến cho hệ thống chậm và khó scale hơn khi mỗi kết nối lạiBAc ứng với thread.
 
+## Thí nghiệm
+
+[Cài đặt load balancing](https://gitlab.zalopay.vn/phuctt4/01-system-thinking/tree/master/load-balancer)
+
 # 8. Caching
 
 ## Vai trò của cache
@@ -164,6 +171,10 @@ Loại bỏ items lâu nhất chưa được sử dụng trong quá khứ.
 ### Least frequent used (LFU)
 
 Thuật toán sẽ đếm các items nào thường xuyên được dùng nhất. Những items được sử dụng ít nhất thường được loại bỏ trước tiên.
+
+## Thí nghiệm
+
+[Cài đặt cache ảnh cho nginx](https://gitlab.zalopay.vn/phuctt4/01-system-thinking/tree/master/caching)
 
 # 9. Redis
 
@@ -189,6 +200,12 @@ Thuật toán sẽ đếm các items nào thường xuyên được dùng nhất
 - **Key không được quá ngắn.** Nếu key như `u500frd`, có thể thay thế bằng `user:500:friend`. Cách sau sẽ dễ đọc howng và không gian được thêm vào so với cái trước cũng khá ít. Mặc dù key ngắn hơn rõ ràng sẽ tiêu tốn ít bộ nhớ hơn một chút, việc đặt key là phải tìm sự cân bằng phù hợp.
 - **Cố gắng gắn bó với schema**. Chẳng hạn như `object-type:id`, `user-chat:123`.
 - **Kích thước khóa tối đa được phép là 512MB**. Nhưng có lẽ chắc bao giờ phải dùng tới như vậy ^^.
+
+## Thí nghiệm
+
+[Config cluster redis 3 node, chạy cùng machine, khác port](https://gitlab.zalopay.vn/phuctt4/01-system-thinking/tree/master/redis/config-cluster-redis-3-nodes)
+
+[Chương trình chat đơn giản với redis](https://gitlab.zalopay.vn/phuctt4/01-system-thinking/tree/master/redis/redis-chat)
 
 # Reference
 
