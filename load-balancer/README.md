@@ -1,14 +1,27 @@
-# Load balancer 
+# Load balancer
+
+Tạo file test với `create-file.sh`
+
+``` code
+chmod 755 create-file.sh
+./create-file.sh
+```
 
 Tạo 2 server với python 3
 
-Vào thư mục `port8000`
+Vào thư mục `8000`
 
-> python3 -m http.server 8000
+``` code
+cd test-load-balancer/8000
+python3 -m http.server 8000
+```
 
-Vào thư mục `port8100`
+Vào thư mục `8100`
 
-> python3  -m http.server 8100
+``` code
+cd test-load-balancer/8100
+python3 -m http.server 8100
+```
 
 Sửa config của `nginx` trong `/etc/nginx/sites-enabled/default`
 

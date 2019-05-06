@@ -1,3 +1,4 @@
+
 # Config cluster redis 3 node, chạy cùng machine, khác port
 
 **Config này được sử dụng trên redis 5.**
@@ -18,6 +19,13 @@ cluster-enabled yes
 cluster-config-file nodes.conf
 cluster-node-timeout 5000
 appendonly yes
+```
+
+Các lệnh trên có thể chạy file `create-file.sh` để tạo.
+
+``` code
+chmod 755 create-file.sh
+./create-file.sh
 ```
 
 Khởi động từng server redis
