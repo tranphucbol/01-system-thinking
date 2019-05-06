@@ -145,9 +145,9 @@ Có thể thấy rằng các **Message Queue** sẽ xử lý các message tuần
 
 Các phổ biến để thiết kể một ứng dụng mạng là gán một thread hoặc một process cho mỗi connection. Cách thiết kể này đơn giản và dễ cài đặt, nhưng nó không thể scale khi ứng dụng phải xử lý hàng ngàn kết nối đồng thời.
 
-Cách tiếp cận **process-per-connection** hay **thread-per-connection**, thì các connection khi không có bất cứ một events nào xảy ra, thì connection sẽ bị blocking, dẫn đến hao phí tài nguyên, hệ thốBAcng vẫn tốn chi phí cho việc **context switch**. Còn trong **NGINX** mỗi **worker process** sẽ tương đương với một CPU core. Một worker sẽ không bao giờ bBAcị block trên network traffic, chờ cho client phản hồi. Khi một client phản hồi, sau khi xử lý xong phản hồi nó sẽ chuyển ngay sang client khác đang chờBAc được xử lý, hoặc tiếp nhận một connection của client khác.
-BAc
-Việc sử dụng **single thread** là để tránh các BAcvấn đề trong **multiprocess** và **multithread** đang gặp phải là blocking và context switch, khiến cho hệ thống chậm và khó scale hơn khi mỗi kết nối lạiBAc ứng với thread.
+Cách tiếp cận **process-per-connection** hay **thread-per-connection**, thì các connection khi không có bất cứ một events nào xảy ra, thì connection sẽ bị blocking, dẫn đến hao phí tài nguyên, hệ thống vẫn tốn chi phí cho việc **context switch**. Còn trong **NGINX** mỗi **worker process** sẽ tương đương với một CPU core. Một worker sẽ không bao giờ bị block trên network traffic, chờ cho client phản hồi. Khi một client phản hồi, sau khi xử lý xong phản hồi nó sẽ chuyển ngay sang client khác đang chờ được xử lý, hoặc tiếp nhận một connection của client khác.
+
+Việc sử dụng **single thread** là để tránh các vấn đề trong **multiprocess** và **multithread** đang gặp phải là blocking và context switch, khiến cho hệ thống chậm và khó scale hơn khi mỗi kết nối lại ứng với thread.
 
 ## Thí nghiệm
 
