@@ -83,10 +83,9 @@ Hệ thống phổ biến dùng mô hình này là **DNS (Domain Name System)**.
 
 ## Định nghĩa
 
-**Throughput** (Thông lượng): là số hànScale Databaseh động được thực hiện hay số kết quả được đưa ra trong một đơn vị thời gian.Scale Database
-Scale Database
+**Throughput** (Thông lượng): là số hành động được thực hiện hay số kết quả được đưa ra trong một đơn vị thời gian.
 
-**Latency** (Độ trễ): là thời gian để tScale Databasehực hiện một số hành động hoặc để tạo ra một số kết quả.
+**Latency** (Độ trễ): là thời gian để thực hiện một số hành động hoặc để tạo ra một số kết quả.
 
 # 4. Scale Database
 
